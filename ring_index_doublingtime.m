@@ -146,7 +146,7 @@ ylim([2 3.6])
 plot(average_doublingtime, average_BR_ringindex,'s','Markersize',10,'MarkerEdgecolor','black','MarkerFaceColor',[.4 .4 .4])
 ylabel('Ring Index (0-6)')
 xlabel('Doubling Time (h)'); ylabel('Ring Index (0-6)');
-legend('S. acidocaldarius','N. maritimus')
+legend('{\it S. acidocaldarius}','{\it N. maritimus}')
 plt.YAxis(1).Color = 'k';
 
 %FORMAT: errorbar(x,y,yneg,ypos,xneg,xpos)
@@ -154,10 +154,54 @@ errorbar(average_doublingtime,average_BR_ringindex, std_error_RI./2, std_error_R
    error_doublingtimes./2, error_doublingtimes./2,'k.','Linewidth',1.5)
 
 yyaxis left
-saci_model = fitlm(average_doublingtime, average_BR_ringindex)
-plot(saci_model)
+saci_model = fitlm(average_doublingtime, average_BR_ringindex);
+saci_fitline = plot(saci_model);
+set(saci_fitline(2),'Color','k','Linewidth',2); % sets properties of regression line
+set(saci_fitline(3),'Color','k','Linewidth',2); % sets properties of first confidence bound
+set(saci_fitline(4),'Color','k','Linewidth',2); % sets properties of second confidence bound
+
 
 yyaxis right
-hurley_model = fitlm(hurley_dts,hurley_RI)
-plot(hurley_model)
+hurley_model = fitlm(hurley_dts, hurley_RI);
+hurley_fitline = plot(hurley_model);
+set(hurley_fitline(2),'Color','m','Linewidth',2);
+set(hurley_fitline(3),'Color','m','Linewidth',2);
+set(hurley_fitline(4),'Color','m','Linewidth',2);
 
+ %% Plot S.acidocaldarius vs. N.maritimus comparisons using average ring index values across all bioreactors, RELATIVE Y AXES
+% figure(4)
+% hold on
+% title('S. acidocaldarius average R.I. (GDGTs 0-6) and N. maritimus R.I. (GDGTs 0-4)')
+% hurley_dts = [22 30 71]; % doubling times, in hours
+% hurley_RI = [1.56 1.64 1.84]; % Total GDGTs, Ring index 0-4
+% average_BR_ringindex = [2.12 2.04 2.31 3.35]; % ring indices for each dilution rate averaged across all bioreactors
+% std_error_RI = [0.06290 0.05537 0.24456 0.14258]; % standard errors of averaged RI for 18h, 10h, 30h, and 70h experiments, respectively
+% 
+% average_doublingtime = [(11.96 + 9.37 + 11.86)/3 (6.87 + 8.67 + 6.98)/3 (20.31 + 20.40 + 21.27)/3 (51.63 + 41.35 + 39.97)/3];
+% error_doublingtimes = [7.12 3.31 3.34 4.25];
+% 
+% yyaxis right % Hurley data
+% ylim([1 2.5]) % same absolute scale as our data, shifted down
+% plot(hurley_dts, hurley_RI,'v','Markersize',10,'MarkerEdgeColor','black','MarkerFaceColor', 'm')
+% plt = gca;
+% plt.YAxis(2).Color = 'm'; ylabel('Ring Index (0-4)');
+% 
+% yyaxis left % Our S. acidocaldarius data
+% ylim([2 5])
+% plot(average_doublingtime, average_BR_ringindex,'s','Markersize',10,'MarkerEdgecolor','black','MarkerFaceColor',[.4 .4 .4])
+% ylabel('Ring Index (0-6)')
+% xlabel('Doubling Time (h)'); ylabel('Ring Index (0-6)');
+% legend('S. acidocaldarius','N. maritimus')
+% plt.YAxis(1).Color = 'k';
+% 
+% %FORMAT: errorbar(x,y,yneg,ypos,xneg,xpos)
+% errorbar(average_doublingtime,average_BR_ringindex, std_error_RI./2, std_error_RI./2,...
+%    error_doublingtimes./2, error_doublingtimes./2,'k.','Linewidth',1.5)
+% 
+% yyaxis left
+% saci_model = fitlm(average_doublingtime, average_BR_ringindex)
+% plot(saci_model)
+% 
+% yyaxis right
+% hurley_model = fitlm(hurley_dts,hurley_RI)
+% plot(hurley_model)
