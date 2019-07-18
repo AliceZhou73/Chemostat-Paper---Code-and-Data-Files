@@ -53,10 +53,30 @@ xlabel('Time elapsed (h)'),ylabel('Absorbance at 600 nm')
 legend('Bioreactor 1','Bioreactor 2','Bioreactor 3')
 set(gcf,'color','w') % sets figure background to white
 
-if dataset == 1 % sampling intervals for 10/18/30h experiment set
-    gridxy([60 743 893 899 1083 1094 1129],'Linewidth',1.5) % sampling times only, units hours elapsed since inoculation
+if dataset == 1 % sampling intervals for 10/18/30h experiment set. Flow initiated at 60h
+    gridxy([743 893 899 1083 1094 1129],'Linewidth',1.5) % sampling times only, units hours elapsed since inoculation
 end
 
-if dataset == 2 % sampling intervals for 70h experiment 
-    gridxy([300 1002 1120 1171],'Linewidth',1.5)
+if dataset == 2 % sampling intervals for 70h experiment. Flow initiated at 300h
+    gridxy([1002 1120 1171],'Linewidth',1.5)
 end
+
+figure(2)
+hold on
+
+plot(elapsed_time,log(bioreactor1),'ko','Linewidth',2)
+plot(elapsed_time,log(bioreactor2),'ro','Linewidth',2)
+plot(elapsed_time,log(bioreactor3),'bo','Linewidth',2)
+
+xlabel('Time elapsed (h)'),ylabel('log(Absorbance at 600 nm)')
+legend('Bioreactor 1','Bioreactor 2','Bioreactor 3')
+set(gcf,'color','w') % sets figure background to white
+
+if dataset == 1 % sampling intervals for 10/18/30h experiment set. Flow initiated at 60h
+    gridxy([743 893 899 1083 1094 1129],'Linewidth',1.5) % sampling times only, units hours elapsed since inoculation
+end
+
+if dataset == 2 % sampling intervals for 70h experiment. Flow initiated at 300h
+    gridxy([1002 1120 1171],'Linewidth',1.5)
+end
+
