@@ -59,25 +59,30 @@ else
     disp('Normalization routine successful.')
 end
 
+normalized_GDGTs_asc_tt = [normalized_GDGTs(4:9,:);normalized_GDGTs(1:3,:);normalized_GDGTs(10:30,:)] % reorders by turnover time
+% Samples 16/17 x 3 = 10-hour, Samples 11 x 3 = 18-hour, Samples 19/20/22 x
+% 3 = 30-hour, Samples 4A/4B/4E/4F x 3 = 70-hour
+
 %% Cluster analysis using Euclidean distance metric
 
-eucD = pdist(normalized_GDGTs, 'euclidean');
+eucD = pdist(normalized_GDGTs_asc_tt, 'euclidean');
 clustTreeEuc = linkage(eucD,'average'); % the average method computes unweighted average distances between clusters
 coph_dist = cophenet(clustTreeEuc,eucD); % runs cophenetic correlation to verify that cluster tree is consistent with original distances.
 % large values indicate that the tree fits the distances well, in the sense
 % that pairwise distances between observations correlate with their actual
 % pairwise distances
-if coph_dist < 0.85
+if coph_dist < 0.9
     disp('Cluster tree correlates poorly with Euclidean distances. Consider using a different clustering method.')
 else
-    disp('Cluster tree correlates well with Euclidean distances (cophenetic correlation >= 0.85)')
+    disp('Cluster tree correlates well with Euclidean distances (cophenetic correlation >= 0.9)')
 end
 
 figure(1)
 % Plotting a dendrogram to visualize the hierarchy of clusters:
-labels = [{'BR1S11','BR2S11','BR3S11','BR1S16','BR2S16','BR3S16','BR1S17','BR2S17','BR3S17','BR1S19','BR2S19','BR3S19',...
-    'BR1S20','BR2S20','BR3S20','BR1S22','BR2S22','BR3S22','BR2S4A','BR3S4A','BR1S4B','BR3S4B','BR2S4B','BR1S4A','BR1S4E','BR2S4F',...
-    'BR1S4F','BR3S4E','BR3S4F','BR2S4E'}] % in order of appearance in data sheet
+labels = [{'BR1S16','BR1S17','BR2S16','BR2S17','BR3S16','BR3S17','BR1S11','BR2S11','BR3S11','BR1S19','BR1S20','BR1S22',...
+    'BR2S19','BR2S20','BR2S22','BR3S19','BR3S20','BR3S22',...
+    'BR1S4A','BR1S4B','BR1S4E','BR1S4F','BR2S4A','BR2S4B','BR2S4E','BR2S4F','BR3S4A','BR3S4B',...
+    'BR3S4E','BR3S4F'}]; % ascending order by turnover time
 
 [h, nodes] = dendrogram(clustTreeEuc,0,'ColorThreshold','default','Orientation','left','Labels',labels);
 
@@ -90,12 +95,17 @@ h_gca.XTickLabel = [];
 %% Heatmap of Euclidean distances
 figure(2)
 inv_hot_colormap = flipud(hot);
-heatmap(squareform(eucD),'XData',[{'BR1S11','BR2S11','BR3S11','BR1S16','BR2S16','BR3S16','BR1S17','BR2S17','BR3S17','BR1S19','BR2S19','BR3S19',...
-    'BR1S20','BR2S20','BR3S20','BR1S22','BR2S22','BR3S22','BR2S4A','BR3S4A','BR1S4B','BR3S4B','BR2S4B','BR1S4A','BR1S4E','BR2S4F',...
-    'BR1S4F','BR3S4E','BR3S4F','BR2S4E'}],...
-    'YData',[{'BR1S11','BR2S11','BR3S11','BR1S16','BR2S16','BR3S16','BR1S17','BR2S17','BR3S17','BR1S19','BR2S19','BR3S19',...
-    'BR1S20','BR2S20','BR3S20','BR1S22','BR2S22','BR3S22','BR2S4A','BR3S4A','BR1S4B','BR3S4B','BR2S4B','BR1S4A','BR1S4E','BR2S4F',...
-    'BR1S4F','BR3S4E','BR3S4F','BR2S4E'}],'colormap',inv_hot_colormap,'ColorMethod','mean'); 
+heatmap(squareform(eucD),'XData',[{'BR1S16','BR1S17','BR2S16','BR2S17','BR3S16','BR3S17','BR1S11','BR2S11','BR3S11','BR1S19','BR1S20','BR1S22',...
+    'BR2S19','BR2S20','BR2S22','BR3S19','BR3S20','BR3S22',...
+    'BR1S4A','BR1S4B','BR1S4E','BR1S4F','BR2S4A','BR2S4B','BR2S4E','BR2S4F','BR3S4A','BR3S4B',...
+    'BR3S4E','BR3S4F'}],...
+    'YData',[{'BR1S16','BR1S17','BR2S16','BR2S17','BR3S16','BR3S17','BR1S11','BR2S11','BR3S11','BR1S19','BR1S20','BR1S22',...
+    'BR2S19','BR2S20','BR2S22','BR3S19','BR3S20','BR3S22',...
+    'BR1S4A','BR1S4B','BR1S4E','BR1S4F','BR2S4A','BR2S4B','BR2S4E','BR2S4F','BR3S4A','BR3S4B',...
+    'BR3S4E','BR3S4F'}],...
+    'colormap',inv_hot_colormap,'ColorMethod','mean'); 
+  
+
 title('Euclidean distances between pairs of samples');
 links = linkage(eucD,'average'); % first two columns identify samples that have been linked, while the third displays separation distance
 % Default = single-linkage (nearest-neighbor) clustering, 

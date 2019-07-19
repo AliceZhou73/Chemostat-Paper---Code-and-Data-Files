@@ -76,9 +76,9 @@ BR3xneg = abs(BR3_sampletts - BR3_lowend'); BR3xpos = abs(BR3_sampletts - BR3_hi
 figure(1)
 hold on
 
-plot(BR1_doublingtime,BR1_ringindex,'s','Markersize',10,'MarkerEdgecolor','red','MarkerFaceColor',[1 .4 .4])
-plot(BR2_doublingtime,BR2_ringindex,'d','Markersize',10,'MarkerEdgeColor','black','MarkerFaceColor',[.4 .4 .4])
-plot(BR3_doublingtime,BR3_ringindex,'^','Markersize',10,'MarkerEdgeColor','blue','MarkerFaceColor',[.4 .4 1])
+plot(BR1_doublingtime,BR1_ringindex,'s','Markersize',15,'MarkerEdgecolor','red','MarkerFaceColor',[1 .4 .4])
+plot(BR2_doublingtime,BR2_ringindex,'d','Markersize',15,'MarkerEdgeColor','black','MarkerFaceColor',[.4 .4 .4])
+plot(BR3_doublingtime,BR3_ringindex,'^','Markersize',15,'MarkerEdgeColor','blue','MarkerFaceColor',[.4 .4 1])
 
 % Attenuated error bars below
 errorbar(BR1_doublingtime(BR1_sampleindex),BR1_ringindex(BR1_sampleindex),zeros([1 10]),zeros([1 10]), BR1xneg'*.3, BR1xpos','k.','Linewidth',1.5)
@@ -105,9 +105,9 @@ hurley_dts = [22 30 71]; % doubling times, in hours
 hurley_RI = [1.56 1.64 1.84]; % Total GDGTs, Ring index 0-4 (from Hurley et al. 2016)
 
 yyaxis left
-plot(BR1_doublingtime,BR1_ringindex,'s','Markersize',10,'MarkerEdgecolor','red','MarkerFaceColor',[1 .4 .4])
-plot(BR2_doublingtime,BR2_ringindex,'d','Markersize',10,'MarkerEdgeColor','black','MarkerFaceColor',[.4 .4 .4])
-plot(BR3_doublingtime,BR3_ringindex,'^','Markersize',10,'MarkerEdgeColor','blue','MarkerFaceColor',[.6 .6 1])
+plot(BR1_doublingtime,BR1_ringindex,'s','Markersize',15,'MarkerEdgecolor','red','MarkerFaceColor',[1 .4 .4])
+plot(BR2_doublingtime,BR2_ringindex,'d','Markersize',15,'MarkerEdgeColor','black','MarkerFaceColor',[.4 .4 .4])
+plot(BR3_doublingtime,BR3_ringindex,'^','Markersize',15,'MarkerEdgeColor','blue','MarkerFaceColor',[.6 .6 1])
 
 errorbar(BR1_doublingtime(BR1_sampleindex),BR1_ringindex(BR1_sampleindex),zeros([1 10]),zeros([1 10]), BR1xneg'*.3, BR1xpos','k.','Linewidth',1.5)
 errorbar(BR2_doublingtime(BR2_sampleindex),BR2_ringindex(BR2_sampleindex),zeros([1 10]),zeros([1 10]), BR2xneg'*.3, BR2xpos','k.','Linewidth',1.5)
@@ -137,13 +137,13 @@ error_doublingtimes = [7.12 3.31 3.34 4.25];
 
 yyaxis right % Hurley data
 ylim([1 2.6]) % same absolute scale as our data, shifted down
-plot(hurley_dts, hurley_RI,'v','Markersize',10,'MarkerEdgeColor','black','MarkerFaceColor', 'm')
+plot(hurley_dts, hurley_RI,'v','Markersize',15,'MarkerEdgeColor','black','MarkerFaceColor', 'm')
 plt = gca;
 plt.YAxis(2).Color = 'm'; ylabel('Ring Index (0-4)');
 
 yyaxis left % Our S. acidocaldarius data
 ylim([2 3.6])
-plot(average_doublingtime, average_BR_ringindex,'s','Markersize',10,'MarkerEdgecolor','black','MarkerFaceColor',[.4 .4 .4])
+plot(average_doublingtime, average_BR_ringindex,'s','Markersize',15,'MarkerEdgecolor','black','MarkerFaceColor',[.4 .4 .4])
 ylabel('Ring Index (0-6)')
 xlabel('Doubling Time (h)'); ylabel('Ring Index (0-6)');
 legend('{\it S. acidocaldarius}','{\it N. maritimus}')
