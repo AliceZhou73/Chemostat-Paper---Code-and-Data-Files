@@ -70,14 +70,14 @@ BR3xneg = abs(BR3_sampletts - BR3_lowend'); BR3xpos = abs(BR3_sampletts - BR3_hi
 figure(1)
 hold on
 
-plot(BR1_turnover,BR1_ringindex,'s','Markersize',10,'MarkerEdgecolor','red','MarkerFaceColor',[1 .4 .4])
-plot(BR2_turnover,BR2_ringindex,'d','Markersize',10,'MarkerEdgeColor','black','MarkerFaceColor',[.4 .4 .4])
-plot(BR3_turnover,BR3_ringindex,'^','Markersize',10,'MarkerEdgeColor','blue','MarkerFaceColor',[.4 .4 1])
+plot(BR1_turnover,BR1_ringindex,'s','Markersize',15,'MarkerEdgecolor','red','MarkerFaceColor',[1 .4 .4])
+plot(BR2_turnover,BR2_ringindex,'d','Markersize',15,'MarkerEdgeColor','black','MarkerFaceColor',[.4 .4 .4])
+plot(BR3_turnover,BR3_ringindex,'^','Markersize',15,'MarkerEdgeColor','blue','MarkerFaceColor',[.4 .4 1])
 
 % Attenuated error bars below
-errorbar(BR1_turnover(BR1_sampleindex),BR1_ringindex(BR1_sampleindex),zeros([1 10]),zeros([1 10]), BR1xneg'*.3, BR1xpos','k.','Linewidth',1.5)
+errorbar(BR1_turnover(BR1_sampleindex),BR1_ringindex(BR1_sampleindex),zeros([1 10]),zeros([1 10]), BR1xneg'*.3, BR1xpos','r.','Linewidth',1.5)
 errorbar(BR2_turnover(BR2_sampleindex),BR2_ringindex(BR2_sampleindex),zeros([1 10]),zeros([1 10]), BR2xneg'*.3, BR2xpos','k.','Linewidth',1.5)
-errorbar(BR3_turnover(BR3_sampleindex),BR3_ringindex(BR3_sampleindex),zeros([1 10]),zeros([1 10]), BR3xneg'*.3, BR3xpos','k.','Linewidth',1.5)
+errorbar(BR3_turnover(BR3_sampleindex),BR3_ringindex(BR3_sampleindex),zeros([1 10]),zeros([1 10]), BR3xneg'*.3, BR3xpos','b.','Linewidth',1.5)
 xlabel('Reactor Turnover Time (h)'); ylabel('Ring Index (GDGTs 0-6)'); legend('Bioreactor 1','Bioreactor 2','Bioreactor 3')
 
 % Linear regression statistics using Matlab fitlm ('Fit linear regression model')
