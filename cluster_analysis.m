@@ -85,7 +85,7 @@ labels = [{'BR1S16','BR1S17','BR2S16','BR2S17','BR3S16','BR3S17','BR1S11','BR2S1
     'BR3S4E','BR3S4F'}]; % ascending order by turnover time
 
 [h, nodes] = dendrogram(clustTreeEuc,0,'ColorThreshold','default','Orientation','left','Labels',labels);
-
+axis square
 set(h,'Linewidth',2.4)
 h_gca = gca;
 h_gca.TickDir = 'out';
